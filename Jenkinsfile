@@ -66,7 +66,9 @@ node() {
                 }
                 }
                 }'''
+            echo "*** THIS IS THE XRAY INFO ***"
             echo "${info}"
+            echo "*** XrayImportBuilder ***"
             step([$class: 'XrayImportBuilder', importFilePath: 'reports/*.xml', importInfo: info, inputInfoSwitcher: 'fileContent', serverInstance: xrayConnectorId])
         }
     stage('cleanWs') {
