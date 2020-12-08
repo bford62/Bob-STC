@@ -12,7 +12,7 @@ node() {
     }
     stage('Checkout Self') {
 		echo "*** Checking Code Out ***"
-        git branch: 'master', credentialsId: '', url: repoURL
+        git branch: 'main', credentialsId: '', url: repoURL
     }
     stage('Cucumber Tests') {
 		echo "*** Execute Test Cases ***"
