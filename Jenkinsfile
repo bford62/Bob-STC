@@ -69,7 +69,7 @@ node() {
             echo "*** THIS IS THE XRAY INFO ***"
             echo "${info}"
             echo "*** XrayImportBuilder ***"
-            step([$class: 'XrayImportBuilder', projectID: 10606, endpointName: '/junit', importFilePath: 'reports/*.xml', importInfo: info, inputInfoSwitcher: 'fileContent', serverInstance: xrayConnectorId])
+            step([$class: 'XrayImportBuilder', projectKey: projectKey, endpointName: '/junit', importFilePath: 'reports/*.xml', importInfo: info, inputInfoSwitcher: 'fileContent', serverInstance: xrayConnectorId])
         }
     stage('cleanWs') {
         echo "\n\nCleanWs"
