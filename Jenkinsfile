@@ -51,6 +51,7 @@ node() {
         def testExecutionFieldId = 10552
         def testEnvironmentFieldName = "customfield_10372"
         def projectKey = "Xray-Test"
+        def pk = 'XT'
         def projectId = 10606
         def xrayConnectorId = "${xrayConnectorId}"
         def info = '''{
@@ -69,7 +70,7 @@ node() {
             echo "*** THIS IS THE XRAY INFO ***"
             echo "${info}"
             echo "*** XrayImportBuilder ***"
-            step([$class: 'XrayImportBuilder', projectKey: XT, endpointName: '/junit', importFilePath: 'reports/*.xml', importInfo: info, inputInfoSwitcher: 'fileContent', serverInstance: xrayConnectorId])
+            step([$class: 'XrayImportBuilder', projectKey: pk, endpointName: '/junit', importFilePath: 'reports/*.xml', importInfo: info, inputInfoSwitcher: 'fileContent', serverInstance: xrayConnectorId])
         }
     stage('cleanWs') {
         echo "\n\nCleanWs"
