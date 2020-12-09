@@ -56,7 +56,7 @@ node() {
         def info = '''{
                 "fields": {
                     "project": {
-                    "projectKek": "''' + projectKey + '''"
+                    "projectKey": "''' + projectKey + '''"
                 },
                 "labels":''' + labels + ''',
                 "description":"''' + description + '''",
