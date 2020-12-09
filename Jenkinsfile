@@ -55,16 +55,13 @@ node() {
         def xrayConnectorId = "${xrayConnectorId}"
         def info = '''{
                 "fields": {
-                    "project": {
-                    "id": "''' + projectId + '''"
-                },
-                "projectKey":''' + projectKey + ''',
-                "labels":''' + labels + ''',
-                "description":"''' + description + '''",
-                "summary": "Sample Jenkins STC - Automated Regression Execution @ ''' + env.BUILD_TIME + ' ' + environment + ''' " ,
-                "issuetype": {
-                "id": "''' + testExecutionFieldId + '''"
-                }
+                    "projectKey":''' + projectKey + ''',
+                    "labels":''' + labels + ''',
+                    "description":"''' + description + '''",
+                    "summary": "Sample Jenkins STC - Automated Regression Execution @ ''' + env.BUILD_TIME + ' ' + environment + ''' " ,
+                    "issuetype": {
+                        "id": "''' + testExecutionFieldId + '''"
+                    }
                 }
                 }'''
             echo "*** THIS IS THE XRAY INFO ***"
