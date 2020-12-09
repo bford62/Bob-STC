@@ -56,8 +56,9 @@ node() {
         def info = '''{
                 "fields": {
                     "project": {
-                    "projectKey": "''' + projectKey + '''"
+                    "id": "''' + projectId + '''"
                 },
+                "projectKey":''' + projectKey + ''',
                 "labels":''' + labels + ''',
                 "description":"''' + description + '''",
                 "summary": "Sample Jenkins STC - Automated Regression Execution @ ''' + env.BUILD_TIME + ' ' + environment + ''' " ,
@@ -70,8 +71,10 @@ node() {
             echo "${info}"
             echo "*** XrayImportBuilder ***"
             step([$class: 'XrayImportBuilder', 
+            projectKey: projectKey,  
 			importInfo: info, 
             endpointName: '/junit', importFilePath: 'reports/*.xml',
+            summary: "Sample Jenkins STC - Automated Regression Execution @ ''' + env.BUILD_TIME + ' ' + environment + ''' ", 
             inputInfoSwitcher: 'fileContent', 
             serverInstance: xrayConnectorId])
         }
