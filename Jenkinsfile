@@ -69,7 +69,13 @@ node() {
             echo "*** THIS IS THE XRAY INFO ***"
             echo "${info}"
             echo "*** XrayImportBuilder ***"
-            step([$class: 'XrayImportBuilder', projectKey: projectKey, importToSameExecution: 'true', endpointName: '/junit', importFilePath: 'reports/*.xml', importInfo: info, inputInfoSwitcher: 'fileContent', serverInstance: xrayConnectorId])
+            step([$class: 'XrayImportBuilder', 
+            projectKey: projectKey, 
+            importToSameExecution: 'true', 
+            endpointName: '/junit', importFilePath: 'reports/*.xml', description: description, 
+            summary: "Sample Jenkins STC - Automated Regression Execution @ ''' + env.BUILD_TIME + ' ' + environment + ''' ", 
+            inputInfoSwitcher: 'fileContent', 
+            serverInstance: xrayConnectorId])
         }
     stage('cleanWs') {
         echo "\n\nCleanWs"
