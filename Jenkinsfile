@@ -17,8 +17,18 @@ node() {
         echo "Build time:" + env.BUILD_TIME
     }
     stage('Checkout Self') {
-		echo "*** Checking Code Out ***"
-        git branch: 'master', credentialsId: '', url: repoURL
+       echo "\n\n\n GIT CLONE STAGE"
+        sh """
+            rm -rf *
+            ls -l
+        """
+        def branches = "${scm.branches}"
+        if (branches.contains("master")) {
+            git "${repoURL}"
+        }
+        if (branches.contains("main")) {
+            git branch: "main", url: "${repoURL}"
+        }
     }
     stage("BDD-Behave") {
         if (HUDSON_URL.contains("10.88.48.21")) {
