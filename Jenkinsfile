@@ -33,7 +33,8 @@ node() {
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
                     printenv | grep STC_PRIVATE_INSTALL_DIR
                     /usr/local/bin/behave -v --format json -o target/behave.json --junit
-                   ./be2cuc.py target/behave.json target/cucumber.json
+					/usr/bin/python3 -m behave2cucumber -i target/behave.json -o target/cucumber.json
+                   // ./be2cuc.py target/behave.json target/cucumber.json
                    ls -l target/
                """
             } catch (error) {
@@ -70,7 +71,7 @@ node() {
             step([$class: 'XrayImportBuilder', 
             projectKey: projectKey,  
 			importInfo: info, 
-            endpointName: '/junit', importFilePath: 'reports/*.xml',
+            endpointName: '/cucumber/multipart', importFilePath: 'target/cucumber.json',
             summary: "Sample Jenkins STC - Automated Regression Execution @ ''' + env.BUILD_TIME + ' ' + environment + ''' ", 
             inputInfoSwitcher: 'fileContent', 
             serverInstance: xrayConnectorId])
