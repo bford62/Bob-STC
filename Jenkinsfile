@@ -43,7 +43,8 @@ node() {
                     printenv | grep STC_PRIVATE_INSTALL_DIR
                     /usr/local/bin/behave -v --format json -o target/behave.json --junit
 					/usr/bin/python3 -m behave2cucumber -i target/behave.json -o reports/cucumber.json
-                   ls -l target/ reports/
+                    copy ../Maven-Pipeline/storetarget-bdd/reporting/cucumber.json reports/cucumber.json
+                    ls -l target/ reports/
                """
             } catch (error) {
                 echo "\n\n\n FAILURE FOUND -- CONTINUING TO XRAY-IMPORT"
