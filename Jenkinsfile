@@ -1,6 +1,6 @@
 node() {
     def STC_INSTALL = "/opt/STC_CLIENT/Spirent_TestCenter_5.16/Spirent_TestCenter_Application_Linux64Client/"
-    def repoURL = "https://github.com/adrianhardkor/stc.git"
+    def repoURL = "https://github.com/bford62/Bob-STC.git"
     def os = System.properties['os.name'].toLowerCase()
     env.WORKSPACE_LOCAL = sh(returnStdout: true, script: 'pwd').trim()
     passthruString = sh(script: "printenv", returnStdout: true)
