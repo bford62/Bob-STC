@@ -42,7 +42,7 @@ node() {
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
                     printenv | grep STC_PRIVATE_INSTALL_DIR
                     /usr/local/bin/behave -v --format json -o target/behave.json --junit
-                    /usr/bin/python3 convert_report_to_cucumber_format.py --json-schema cucumber-report-schema.json --behave-report behave.json  > reports/cucumber.json
+                    /usr/bin/python3 ./convert_report_to_cucumber_format.py --json-schema cucumber-report-schema.json --behave-report behave.json  > reports/cucumber.json
 //					/usr/bin/python3 -m behave2cucumber -i target/behave.json -f -o reports/cucumber.json
  //                   cp ../Maven-Pipeline/storetarget-bdd/reporting/cucumber.json reports/cucumber.json
                     ls -l target/ reports/
