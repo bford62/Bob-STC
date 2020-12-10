@@ -80,7 +80,7 @@ node() {
         echo info
 
         step([$class: 'XrayImportBuilder', 
-        endpointName: '/cucumber/multipart', 
+        endpointName: '/cucumber', 
         importFilePath: 'reports/cucumber.json', 
         importInfo: info, 
         inputInfoSwitcher: 'fileContent', 
