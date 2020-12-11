@@ -41,7 +41,7 @@ node() {
                sh """
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
                     printenv | grep STC_PRIVATE_INSTALL_DIR
-					pwd
+					echo "pwd=$PWD"
                     export PYTHONPATH=.:/usr/lib/python3.8/
                     /usr/local/bin/behave -f cucumber_jsonW.py:PrettyCucumberJSONFormatter -o reports/cucumber.json  --format=json -o target/behave.json --junit
 //                    /usr/local/bin/behave -v --format json.pretty -o target/behave.json --junit
