@@ -41,7 +41,7 @@ node() {
                sh """
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
                     printenv | grep STC_PRIVATE_INSTALL_DIR
-                    behave -f cucumber -o cucumber.json --format=json -o behave.json --junit
+                    /var/lib/jenkins/.pyenv/shims/behave -f cucumber -o cucumber.json --format=json -o behave.json --junit
                """
             } catch (error) {
                 echo "\n\n\n FAILURE FOUND -- CONTINUING TO XRAY-IMPORT"
