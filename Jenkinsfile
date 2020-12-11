@@ -40,17 +40,8 @@ node() {
             try {
                sh """
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
-                    printenv | grep STC_PRIVATE_INSTALL_DIR
-					echo "pwd=$PWD"
 					cd $env.WORKSPACE_LOCAL
                     /var/lib/jenkins/.pyenv/shims/behave -f cucumber -o reports/cucumber.json --junit --format=json -o target/behave.json --junit
-//					behave -f cucumber_jsonU.py:PrettyCucumberJSONFormatter -o reports/cucumber.json  --format=json -o target/behave.json --junit
-//                    /usr/local/bin/behave -v --format json.pretty -o target/behave.json --junit
-//                    /usr/bin/python3 ./be2cuc.py target/behave.json reports/cucumber.json
-//                    /usr/bin/python3 ./convert_report_to_cucumber_format.py --json-schema cucumber-report-schema.json --behave-report target/behave.json  > reports/cucumber.json
-//					/usr/bin/python3 -m behave2cucumber -i target/behave.json -f -o reports/cucumber.json
-//                   cp ../Maven-Pipeline/storetarget-bdd/reporting/cucumber.json reports/cucumber.json
-                    ls -l target/ reports/
                """
             } catch (error) {
                 echo "\n\n\n FAILURE FOUND -- CONTINUING TO XRAY-IMPORT"
