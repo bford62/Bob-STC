@@ -40,11 +40,10 @@ node() {
             try {
                sh """
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
-                    printenv | grep STC_PRIVATE_INSTALL_DIR
 //					echo "pwd=$PWD"
 //					cd $env.WORKSPACE_LOCAL
                     export PATH=/usr/local/maven/bin:/var/lib/jenkins/.pyenv/shims:/var/lib/jenkins/.pyenv/bin
-					which behave
+                    printenv | egrep "STC_PRIVATE_INSTALL_DIR|PATH"
                     behave -f cucumber -o cucumber.json --format=json -o behave.json --junit
 //					behave -f cucumber_jsonU.py:PrettyCucumberJSONFormatter -o reports/cucumber.json  --format=json -o target/behave.json --junit
 //                    /usr/local/bin/behave -v --format json.pretty -o target/behave.json --junit
