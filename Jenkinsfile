@@ -51,6 +51,13 @@ node() {
             } 
         }
     }
+    stage ('Cucumber Reports') {
+        steps {
+            cucumber buildStatus: "UNSTABLE",
+            fileIncludePattern: "**/cucumber.json",
+            jsonReportDirectory: 'reports'
+        }
+    }
 	stage('Import results to Xray') {
 		echo "*** Import Results to XRAY ***"
 
