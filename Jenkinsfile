@@ -92,7 +92,7 @@ node() {
     }
     stage('Slack Notification'){
         slackSend baseUrl: 'https://hooks.slack.com/services/', 
-		channel: '#wopr-jenkins-test', 
+		channel: '#wopr-private', 
 		color: 'good', 
 		message: "Build: ${env.JOB_NAME} Completed Successfully ${env.BUILD_URL} Report: ${env.BUILD_URL}/cucumber-html-reports/overview-features.html",
 		teamDomain: 'https://wow-technology.slack.com', 
