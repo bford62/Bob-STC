@@ -40,14 +40,14 @@ node() {
             try {
                sh """
                     export STC_PRIVATE_INSTALL_DIR=${STC_INSTALL}
-					cd $env.WORKSPACE_LOCAL
+                    cd $env.WORKSPACE_LOCAL
                     /var/lib/jenkins/.pyenv/shims/behave -f cucumber -o reports/cucumber.json --junit --format=json -o target/behave.json --junit
                """
             } catch (error) {
                 echo "\n\n\n FAILURE FOUND -- CONTINUING TO XRAY-IMPORT"
             } finally {
                 echo "*** JUNIT ***"
-				junit skipPublishingChecks: true, allowEmptyResults: true, keepLongStdio: true, testResults: 'reports/*.xml'
+                junit skipPublishingChecks: true, allowEmptyResults: true, keepLongStdio: true, testResults: 'reports/*.xml'
             } 
         }
     }
@@ -56,18 +56,18 @@ node() {
         fileIncludePattern: "**/cucumber.json",
         jsonReportDirectory: 'reports'
     }
-	stage('Import results to Xray') {
-		echo "*** Import Results to XRAY ***"
+    stage('Import results to Xray') {
+        echo "*** Import Results to XRAY ***"
 
-		def description = "[STC Test Report|${env.BUILD_URL}/cucumber-html-reports/overview-features.html]"
-		def labels = '["regression","automated_regression"]'
-		def environment = "DEV"
-		def testExecutionFieldId = 10552
-		def testEnvironmentFieldName = "customfield_10372"
-		def projectKey = "XT"
-		def projectId = 10606
-		def xrayConnectorId = "${xrayConnectorId}"
-		def info = '''{
+        def description = "[STC Test Report|${env.BUILD_URL}/cucumber-html-reports/overview-features.html]"
+        def labels = '["regression","automated_regression"]'
+        def environment = "DEV"
+        def testExecutionFieldId = 10552
+        def testEnvironmentFieldName = "customfield_10372"
+        def projectKey = "XT"
+        def projectId = 10606
+        def xrayConnectorId = "${xrayConnectorId}"
+        def info = '''{
             "fields": {
                 "project": {
                     "id": "''' + projectId + '''"
@@ -89,5 +89,14 @@ node() {
         importInfo: info, 
         inputInfoSwitcher: 'fileContent', 
         serverInstance: xrayConnectorId])
+    }
+    stage('Slack Notification'){
+        slackSend baseUrl: 'https://hooks.slack.com/services/', 
+		channel: '#wopr-jenkins-test', 
+		color: 'good', 
+		message: 'Bob STC Pipeline', 
+		teamDomain: 'https://wow-technology.slack.com', 
+		tokenCredentialId: 'Slack-Token', 
+		username: 'JenkinsUser'
     }
 }
