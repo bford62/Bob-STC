@@ -94,7 +94,7 @@ node() {
         slackSend baseUrl: 'https://hooks.slack.com/services/', 
 		channel: '#wopr-jenkins-test', 
 		color: 'good', 
-		message: "Build: ${env.JOB_NAME} Completed Successfully ${env.BUILD_URL} Report: ${env.BUILD_URL}/cucumber-html-reports/overview-features.html,
+		message: "Build: ${env.JOB_NAME} Completed Successfully ${env.BUILD_URL} Report: ${env.BUILD_URL}/cucumber-html-reports/overview-features.html",
 		teamDomain: 'https://wow-technology.slack.com', 
 		tokenCredentialId: 'Slack-Token', 
 		username: 'JenkinsAutomation'
