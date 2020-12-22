@@ -134,7 +134,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
       }
 
     // Send notifications
-    slackSend (color: colorCode, message: summary)
     slackSend baseUrl: 'https://hooks.slack.com/services/', 
     channel: '#wopr-private', 
     color: colorCode, 
