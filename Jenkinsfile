@@ -4,7 +4,7 @@ node() {
 
     def STC_INSTALL = "/opt/STC_CLIENT/Spirent_TestCenter_5.16/Spirent_TestCenter_Application_Linux64Client/"
     def os = System.properties['os.name'].toLowerCase()
-
+    notifyBuild('STARTED')
     stage("Prepare Workspace") {
         echo "*** Prepare Workspace ***"
         cleanWs()
@@ -90,13 +90,54 @@ node() {
         inputInfoSwitcher: 'fileContent', 
         serverInstance: xrayConnectorId])
     }
-    stage('Slack Notification'){
-        slackSend baseUrl: 'https://hooks.slack.com/services/', 
-		channel: '#arc-wopr', 
-		color: 'good', 
-		message: "Build: ${env.JOB_NAME} Completed Successfully ${env.BUILD_URL} Report: ${env.BUILD_URL}/cucumber-html-reports/overview-features.html",
-		teamDomain: 'https://wow-technology.slack.com', 
-		tokenCredentialId: 'Slack-Token', 
-		username: 'JenkinsAutomation'
+    catch(e) {                           
+        // If there was an exception thrown, the build failed
+        currentBuild.result = "FAILED"
+        throw e
+    } finally {
+        // Success or failure, always send notifications
+		echo "I AM HERE"
+        notifyBuild(currentBuild.result)
     }
+}
+def notifyBuild(String buildStatus = 'STARTED') {
+    // build status of null means successful
+    buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+    // Default values
+    def colorName = 'RED'
+    def colorCode = '#FF0000'
+    def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+    def summary = "${subject} (${env.BUILD_URL})"
+    def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+      <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>"""
+
+      // Override default values based on build status
+      if (buildStatus == 'STARTED') {
+        color = 'BLUE'
+        colorCode = '#0000FF'
+		msg = "Build: ${env.JOB_NAME} has started: ${BUILD_TIMESTAMP}"
+      } else if (buildStatus == 'UNSTABLE') {
+        color = 'YELLOW'
+        colorCode = '#FFFF00'
+		msg = "Build: ${env.JOB_NAME} was listed as unstable. Look at ${env.BUILD_URL} and Report: ${env.BUILD_URL}/cucumber-html-reports/overview-features.html"
+      } else if (buildStatus == 'SUCCESSFUL') {
+        color = 'GREEN'
+        colorCode = '#00FF00'
+		msg = "Build: ${env.JOB_NAME} Completed Successfully ${env.BUILD_URL} Report: ${env.BUILD_URL}/cucumber-html-reports/overview-features.html"
+      } else {
+        color = 'RED'
+        colorCode = '#FF0000'
+		msg = "Build: ${env.JOB_NAME} had an issue ${env.BUILD_URL}/console"
+      }
+
+    // Send notifications
+    slackSend (color: colorCode, message: summary)
+    slackSend baseUrl: 'https://hooks.slack.com/services/', 
+	channel: '#wopr-private', 
+	color: colorCode, 
+	message: msg,
+	teamDomain: 'https://wow-technology.slack.com', 
+	tokenCredentialId: 'Slack-Token', 
+ 	username: 'JenkinsAutomation'
 }
