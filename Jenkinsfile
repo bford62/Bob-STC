@@ -141,12 +141,4 @@ def notifyBuild(String buildStatus = 'STARTED') {
     teamDomain: 'https://wow-technology.slack.com', 
     tokenCredentialId: 'Slack-Token', 
     username: 'JenkinsAutomation'
-	// attempt to send to an individual
-    def UserId = slackUserIdFromEmail('bob.ford@wowinc.con')	
-	slackSend baseUrl: 'https://hooks.slack.com/services/', 
-    color: colorCode, 
-    message: "<@$userId> howdy",
-    teamDomain: 'https://wow-technology.slack.com', 
-    tokenCredentialId: 'Slack-Token', 
-    username: 'JenkinsAutomation'
 }
