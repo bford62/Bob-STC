@@ -135,10 +135,18 @@ def notifyBuild(String buildStatus = 'STARTED') {
 
     // Send notifications
     slackSend baseUrl: 'https://hooks.slack.com/services/', 
-    botUser: '@Bob Ford', 
+    channel: 'wopr-jenkins-test', 
     color: colorCode, 
     message: msg,
     teamDomain: 'https://wow-technology.slack.com', 
     tokenCredentialId: 'Slack-Token', 
-     username: 'JenkinsAutomation'
+    username: 'JenkinsAutomation'
+	// attempt to send to an individual
+    def UserId = slackUserIdFromEmail('bob.ford@wowinc.con')	
+	slackSend baseUrl: 'https://hooks.slack.com/services/', 
+    color: colorCode, 
+    message: "<@$userId> "msg,
+    teamDomain: 'https://wow-technology.slack.com', 
+    tokenCredentialId: 'Slack-Token', 
+    username: 'JenkinsAutomation'
 }
