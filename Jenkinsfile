@@ -135,7 +135,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
 
     // Send notifications
     slackSend baseUrl: 'https://hooks.slack.com/services/', 
-    tokenCredentialId : '@Bob Ford', 
+    botUser: '@Bob Ford', 
     color: colorCode, 
     message: msg,
     teamDomain: 'https://wow-technology.slack.com', 
